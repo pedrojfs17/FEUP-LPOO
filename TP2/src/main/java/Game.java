@@ -13,7 +13,7 @@ public class Game {
     private Arena arena;
 
     public Game() {
-        arena = new Arena(50, 20);
+        arena = new Arena(80, 24);
 
         try {
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
@@ -29,7 +29,7 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        arena.draw(screen);
+        arena.draw(screen.newTextGraphics());
         screen.refresh();
     }
 
