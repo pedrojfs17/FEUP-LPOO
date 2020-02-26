@@ -38,6 +38,11 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
+            if (arena.verifyMonsterCollisions()) {
+                screen.close();
+                System.out.println("You lost!");
+                break;
+            }
             if (key.getKeyType() == KeyType.EOF)
                 break;
         }

@@ -19,6 +19,7 @@ public class Arena {
 
     private List<Wall> walls;
     private List<Coin> coins;
+    private List<Monster> monsters;
 
     public Arena(int width, int height) {
         this.width = width;
@@ -28,6 +29,7 @@ public class Arena {
 
         this.walls = createWalls();
         this.coins = createCoins();
+        this.monsters = createMonsters();
     }
 
     public void draw(TextGraphics graphics) {
@@ -38,6 +40,8 @@ public class Arena {
             wall.draw(graphics);
         for (Coin coin : coins)
             coin.draw(graphics);
+        for (Monster monster : monsters)
+            monster.draw(graphics);
     }
 
     public void moveHero(Position position) {
@@ -67,15 +71,19 @@ public class Arena {
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
+                moveMonsters();
                 break;
             case ArrowDown:
                 moveHero(hero.moveDown());
+                moveMonsters();
                 break;
             case ArrowLeft:
                 moveHero(hero.moveLeft());
+                moveMonsters();
                 break;
             case ArrowRight:
                 moveHero(hero.moveRight());
+                moveMonsters();
                 break;
         }
     }
@@ -111,5 +119,30 @@ public class Arena {
                 break;
             }
         }
+    }
+
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return monsters;
+    }
+
+    private void moveMonsters() {
+        Position p;
+        for (Monster monster : monsters) {
+            p = monster.move();
+            if (canHeroMove(p))
+                monster.setPosition(p);
+        }
+    }
+
+    public boolean verifyMonsterCollisions() {
+        for (Monster monster : monsters) {
+            if (monster.getPosition().equals(hero.getPosition()))
+                return true;
+        }
+        return false;
     }
 }
