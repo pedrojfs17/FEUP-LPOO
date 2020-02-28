@@ -13,7 +13,7 @@ public class Monster extends Element {
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FF0000"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "M");
     }
 
     public Position move() {

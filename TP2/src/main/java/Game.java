@@ -38,7 +38,8 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
-            if (arena.verifyMonsterCollisions()) {
+            arena.verifyMonsterCollisions();
+            if (!arena.checkHeroEnergy()) {
                 screen.close();
                 System.out.println("You lost!");
                 break;

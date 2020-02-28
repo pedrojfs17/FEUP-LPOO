@@ -3,10 +3,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +17,9 @@ public class Arena {
     private List<Wall> walls;
     private List<Coin> coins;
     private List<Monster> monsters;
+    private List<Follower> followers;
+
+    private static int counter = 0;
 
     public Arena(int width, int height) {
         this.width = width;
@@ -30,6 +30,7 @@ public class Arena {
         this.walls = createWalls();
         this.coins = createCoins();
         this.monsters = createMonsters();
+        this.followers = createFollowers();
     }
 
     public void draw(TextGraphics graphics) {
@@ -42,6 +43,8 @@ public class Arena {
             coin.draw(graphics);
         for (Monster monster : monsters)
             monster.draw(graphics);
+        for (Follower follower : followers)
+            follower.draw(graphics);
     }
 
     public void moveHero(Position position) {
@@ -68,22 +71,20 @@ public class Arena {
     }
 
     public void processKey(KeyStroke key) {
+        moveMonsters();
+        counter++;
         switch (key.getKeyType()) {
             case ArrowUp:
                 moveHero(hero.moveUp());
-                moveMonsters();
                 break;
             case ArrowDown:
                 moveHero(hero.moveDown());
-                moveMonsters();
                 break;
             case ArrowLeft:
                 moveHero(hero.moveLeft());
-                moveMonsters();
                 break;
             case ArrowRight:
                 moveHero(hero.moveRight());
-                moveMonsters();
                 break;
         }
     }
@@ -129,6 +130,14 @@ public class Arena {
         return monsters;
     }
 
+    private List<Follower> createFollowers() {
+        Random random = new Random();
+        ArrayList<Follower> followers = new ArrayList<>();
+        for (int i = 0; i < 2; i++)
+            followers.add(new Follower(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
+        return followers;
+    }
+
     private void moveMonsters() {
         Position p;
         for (Monster monster : monsters) {
@@ -136,13 +145,31 @@ public class Arena {
             if (canHeroMove(p))
                 monster.setPosition(p);
         }
+        if (counter % 3 != 0) {
+            for (Follower follower : followers) {
+                p = follower.move(hero.getPosition());
+                if (canHeroMove(p))
+                    follower.setPosition(p);
+            }
+        }
     }
 
-    public boolean verifyMonsterCollisions() {
+    public void verifyMonsterCollisions() {
         for (Monster monster : monsters) {
-            if (monster.getPosition().equals(hero.getPosition()))
-                return true;
+            if (monster.getPosition().equals(hero.getPosition())) {
+                hero.setEnergy(hero.getEnergy() - 1);
+                return;
+            }
         }
-        return false;
+        for (Follower follower : followers) {
+            if (follower.getPosition().equals(hero.getPosition())) {
+                hero.setEnergy(hero.getEnergy() - 1);
+                return;
+            }
+        }
+    }
+
+    public boolean checkHeroEnergy() {
+        return hero.getEnergy() > 0;
     }
 }

@@ -7,14 +7,29 @@ import com.googlecode.lanterna.screen.Screen;
 import javafx.geometry.Pos;
 
 public class Hero extends Element {
+    private int energy;
+
     public Hero(int x, int y) {
         super(x, y);
+        this.energy = 3;
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        switch(energy) {
+            case 1:
+                graphics.setForegroundColor(TextColor.Factory.fromString("#FF3300"));
+                break;
+            case 2:
+                graphics.setForegroundColor(TextColor.Factory.fromString("#FF9900"));
+                break;
+            case 3:
+                graphics.setForegroundColor(TextColor.Factory.fromString("#99FF33"));
+                break;
+            default:
+                break;
+        }
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "X");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "P");
     }
 
     public Position moveUp() {
@@ -31,5 +46,13 @@ public class Hero extends Element {
 
     public Position moveRight() {
         return new Position(position.getX() + 1, position.getY());
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 }

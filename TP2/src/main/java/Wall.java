@@ -9,8 +9,9 @@ public class Wall extends Element {
     }
 
     public void draw(TextGraphics graphics) {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FF3333"));
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#A0A0A0"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "8");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), " ");
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
     }
 }
