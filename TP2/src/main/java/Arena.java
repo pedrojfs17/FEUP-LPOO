@@ -1,3 +1,4 @@
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -12,6 +13,7 @@ public class Arena {
     private int width;
     private int height;
 
+    private int level;
     private int numMonsters;
     private int numFollowers;
 
@@ -28,6 +30,7 @@ public class Arena {
         this.width = width;
         this.height = height;
 
+        this.level = level;
         this.numMonsters = 4 + level;
         this.numFollowers = 2 + level / 3;
 
@@ -51,6 +54,12 @@ public class Arena {
             monster.draw(graphics);
         for (Follower follower : followers)
             follower.draw(graphics);
+
+        // Level Number
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#A0A0A0"));
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(2, 0), "Level: " + level);
     }
 
     public void moveHero(Position position) {
