@@ -1,5 +1,9 @@
 package com.seixas.hero.game;
 
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -42,8 +46,8 @@ public class Game {
             processKey(key);
             arena.verifyMonsterCollisions();
             if (!arena.checkHeroEnergy()) {
+                gameOver();
                 screen.close();
-                System.out.println("You lost!");
                 break;
             }
             if (arena.finishedLevel()) {
@@ -67,5 +71,22 @@ public class Game {
         arena.processKey(key);
     }
 
+    private void gameOver() throws IOException {
+        screen.clear();
+        screen.newTextGraphics().setBackgroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        screen.newTextGraphics().fillRectangle(new TerminalPosition(0, 0), new TerminalSize(80, 24), ' ');
+        // Game Over Text
+        screen.newTextGraphics().setForegroundColor(TextColor.Factory.fromString("#000000"));
+        screen.newTextGraphics().enableModifiers(SGR.BOLD);
+        screen.newTextGraphics().putString(new TerminalPosition(36, 11), "GAME OVER");
+        screen.refresh();
+
+        while (true) {
+            KeyStroke key = screen.readInput();
+            processKey(key);
+            if (key.getKeyType() == KeyType.EOF || key.getKeyType() == KeyType.Enter)
+                break;
+        }
+    }
 
 }
