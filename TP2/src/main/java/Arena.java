@@ -12,6 +12,9 @@ public class Arena {
     private int width;
     private int height;
 
+    private int numMonsters;
+    private int numFollowers;
+
     private Hero hero;
 
     private List<Wall> walls;
@@ -21,9 +24,12 @@ public class Arena {
 
     private static int counter = 0;
 
-    public Arena(int width, int height) {
+    public Arena(int width, int height, int level) {
         this.width = width;
         this.height = height;
+
+        this.numMonsters = 4 + level;
+        this.numFollowers = 2 + level / 3;
 
         hero = new Hero(10, 10);
 
@@ -125,7 +131,7 @@ public class Arena {
     private List<Monster> createMonsters() {
         Random random = new Random();
         ArrayList<Monster> monsters = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < numMonsters; i++)
             monsters.add(new Monster(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
         return monsters;
     }
@@ -133,7 +139,7 @@ public class Arena {
     private List<Follower> createFollowers() {
         Random random = new Random();
         ArrayList<Follower> followers = new ArrayList<>();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < numFollowers; i++)
             followers.add(new Follower(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1));
         return followers;
     }

@@ -11,6 +11,6 @@ public class Coin extends Element {
     public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "C");
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), "O");
     }
 }
