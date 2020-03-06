@@ -1,3 +1,7 @@
+package com.seixas.hero;
+
+import com.seixas.hero.game.Game;
+
 import java.io.IOException;
 
 public class Application {

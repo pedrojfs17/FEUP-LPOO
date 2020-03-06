@@ -1,7 +1,10 @@
+package com.seixas.hero.elements;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.seixas.hero.game.Position;
 
 public abstract class Element {
     protected Position position;

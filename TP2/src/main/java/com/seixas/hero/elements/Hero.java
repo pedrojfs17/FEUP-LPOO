@@ -1,10 +1,10 @@
+package com.seixas.hero.elements;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.screen.Screen;
-import javafx.geometry.Pos;
+import com.seixas.hero.game.Position;
 
 public class Hero extends Element {
     private int energy;

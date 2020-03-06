@@ -1,9 +1,10 @@
+package com.seixas.hero.elements;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-
-import java.util.Random;
+import com.seixas.hero.game.Position;
 
 public class Follower extends Element {
     public Follower(int x, int y) {
