@@ -13,8 +13,6 @@ public class Game {
     private Arena arena;
 
     public Game() {
-        arena = new Arena(80, 24);
-
         try {
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
             this.screen = new TerminalScreen(terminal);
@@ -34,6 +32,7 @@ public class Game {
     }
 
     public void run() throws IOException {
+        arena = new Arena(80, 24);
         while (true) {
             draw();
             KeyStroke key = screen.readInput();
@@ -43,6 +42,9 @@ public class Game {
                 screen.close();
                 System.out.println("You lost!");
                 break;
+            }
+            if (arena.finishedLevel()) {
+                arena = new Arena(80, 24);
             }
             if (key.getKeyType() == KeyType.EOF)
                 break;

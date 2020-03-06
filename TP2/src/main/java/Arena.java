@@ -172,4 +172,8 @@ public class Arena {
     public boolean checkHeroEnergy() {
         return hero.getEnergy() > 0;
     }
+
+    public boolean finishedLevel() {
+        return (this.coins.size() == 0);
+    }
 }
