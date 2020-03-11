@@ -8,14 +8,19 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ListAggregatorTest {
-    @Test
-    public void sum() {
+    public List<Integer> listSetUp() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(4);
         list.add(2);
         list.add(5);
+        return list;
+    }
+
+    @Test
+    public void sum() {
+        List<Integer> list = listSetUp();
 
         ListAggregator aggregator = new ListAggregator(list);
 
@@ -26,12 +31,7 @@ public class ListAggregatorTest {
 
     @Test
     public void max() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(4);
-        list.add(2);
-        list.add(5);
+        List<Integer> list = listSetUp();
 
         ListAggregator aggregator = new ListAggregator(list);
 
@@ -42,12 +42,7 @@ public class ListAggregatorTest {
 
     @Test
     public void min() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(4);
-        list.add(2);
-        list.add(5);
+        List<Integer> list = listSetUp();
 
         ListAggregator aggregator = new ListAggregator(list);
 
@@ -58,12 +53,7 @@ public class ListAggregatorTest {
 
     @Test
     public void distinct() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(4);
-        list.add(2);
-        list.add(5);
+        List<Integer> list = listSetUp();
 
         ListAggregator aggregator = new ListAggregator(list);
 

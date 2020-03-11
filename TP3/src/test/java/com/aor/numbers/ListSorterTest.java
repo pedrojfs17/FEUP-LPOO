@@ -10,8 +10,7 @@ import static org.junit.Assert.*;
 public class ListSorterTest {
     private List<Integer> list;
 
-    @Test
-    public void sort() {
+    public List<Integer> listSetUp() {
         List<Integer> list = new ArrayList();
         list.add(3);
         list.add(2);
@@ -20,6 +19,12 @@ public class ListSorterTest {
         list.add(4);
         list.add(5);
         list.add(7);
+        return list;
+    }
+
+    @Test
+    public void sort() {
+        List<Integer> list = listSetUp();
 
         List<Integer> expected = new ArrayList();
         expected.add(1);
