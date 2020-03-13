@@ -1,9 +1,7 @@
 package com.aor.numbers;
 
-import com.aor.numbers.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
