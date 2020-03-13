@@ -59,7 +59,7 @@ public class ListAggregator {
      * @return The number of distinct numbers.
      */
     public int distinct(IListDeduplicator deduplicator) {
-        List<Integer> distinct = deduplicator.deduplicate();
+        List<Integer> distinct = deduplicator.deduplicate(new ListSorter(list));
 
         return distinct.size();
     }

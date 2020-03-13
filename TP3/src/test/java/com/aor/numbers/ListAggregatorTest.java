@@ -1,5 +1,6 @@
 package com.aor.numbers;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -8,20 +9,20 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class ListAggregatorTest {
-    public List<Integer> listSetUp() {
-        List<Integer> list = new ArrayList<>();
+    private List<Integer> list;
+
+    @Before
+    public void listSetUp() {
+        list = new ArrayList<>();
         list.add(1);
         list.add(2);
         list.add(4);
         list.add(2);
         list.add(5);
-        return list;
     }
 
     @Test
     public void sum() {
-        List<Integer> list = listSetUp();
-
         ListAggregator aggregator = new ListAggregator(list);
 
         int sum = aggregator.sum();
@@ -31,8 +32,6 @@ public class ListAggregatorTest {
 
     @Test
     public void max() {
-        List<Integer> list = listSetUp();
-
         ListAggregator aggregator = new ListAggregator(list);
 
         int max = aggregator.max();
@@ -42,8 +41,6 @@ public class ListAggregatorTest {
 
     @Test
     public void min() {
-        List<Integer> list = listSetUp();
-
         ListAggregator aggregator = new ListAggregator(list);
 
         int min = aggregator.min();
@@ -53,8 +50,6 @@ public class ListAggregatorTest {
 
     @Test
     public void distinct() {
-        List<Integer> list = listSetUp();
-
         ListAggregator aggregator = new ListAggregator(list);
 
         int distinct = aggregator.distinct(new ListDeduplicator(list));
@@ -64,7 +59,7 @@ public class ListAggregatorTest {
 
     @Test
     public void cornerCase() {
-        List<Integer> list = new ArrayList<>();
+        list.clear();
         list.add(-1);
         list.add(-4);
         list.add(-5);
@@ -78,15 +73,25 @@ public class ListAggregatorTest {
 
     @Test
     public void distinct2() {
-        List<Integer> list = new ArrayList<>();
+        list.clear();
         list.add(1);
         list.add(2);
         list.add(4);
         list.add(2);
 
+        class StubDeduplicator implements IListDeduplicator {
+            public List<Integer> deduplicate(IListSorter listSorter){
+                List<Integer> list = new ArrayList<>();
+                list.add(1);
+                list.add(2);
+                list.add(4);
+                return list;
+            }
+        }
+
         ListAggregator aggregator = new ListAggregator(list);
 
-        int distinct = aggregator.distinct(new ListDeduplicator(list));
+        int distinct = aggregator.distinct(new StubDeduplicator());
 
         assertEquals(3, distinct);
     }
