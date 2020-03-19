@@ -5,6 +5,9 @@ public class Application {
         aggregator.addShape(new Square(10));
         aggregator.addShape(new Square(5));
         aggregator.addShape(new Circle(2));
+        aggregator.addShape(new Ellipse(10, 10));
+        aggregator.addShape(new Rectangle(20, 10));
+        aggregator.addShape(new Triangle(2, 3));
 
         AreaStringOutputter stringOutputter = new AreaStringOutputter(aggregator);
         AreaXMLOutputter xmlOutputter = new AreaXMLOutputter(aggregator);
