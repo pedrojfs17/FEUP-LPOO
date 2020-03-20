@@ -1,4 +1,4 @@
-public class Line implements BasicShape {
+public class Line implements Shape {
     private double length;
 
     Line(double length) {

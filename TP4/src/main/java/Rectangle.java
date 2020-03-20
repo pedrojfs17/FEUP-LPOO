@@ -1,6 +1,4 @@
-import org.w3c.dom.css.Rect;
-
-public class Rectangle implements Shape {
+public class Rectangle implements AreaShape {
     private double width;
     private double height;
 
@@ -29,4 +27,10 @@ public class Rectangle implements Shape {
     public double getArea() {
         return this.height * this.width;
     }
+
+    @Override
+    public void draw() {
+        System.out.println("Rectangle");
+    }
+
 }

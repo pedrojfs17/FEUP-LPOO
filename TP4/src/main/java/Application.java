@@ -8,6 +8,7 @@ public class Application {
         aggregator.addShape(new Ellipse(10, 10));
         aggregator.addShape(new Rectangle(20, 10));
         aggregator.addShape(new Triangle(2, 3));
+        aggregator.addShape(new House(100));
 
         AreaStringOutputter stringOutputter = new AreaStringOutputter(aggregator);
         AreaXMLOutputter xmlOutputter = new AreaXMLOutputter(aggregator);
