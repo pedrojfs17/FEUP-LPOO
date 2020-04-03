@@ -3,42 +3,36 @@ package com.aor.refactoring.example5;
 public class Turtle {
     private int row;
     private int column;
-    private char direction;
+    private Direction direction;
 
-    public Turtle(int row, int column, char direction) {
+    public Turtle(int row, int column, Direction direction) {
         this.row = row;
         this.column = column;
         this.direction = direction;
+        direction.setTurtle(this);
     }
 
     public int getRow() {
         return row;
     }
 
+    public void setRow(int row) {this.row = row;}
+
     public int getColumn() {
         return column;
     }
 
+    public void setColumn(int column) {this.column = column;}
+
     public char getDirection() {
-        return direction;
+        return direction.getDirection();
     }
 
+    public void setDirection(Direction direction) {this.direction = direction;}
+
     public void execute(char command) {
-        if (command == 'L') { // ROTATE LEFT
-            if (direction == 'N') direction = 'W';
-            else if (direction == 'W') direction = 'S';
-            else if (direction == 'S') direction = 'E';
-            else if (direction == 'E') direction = 'N';
-        } else if (command == 'R') { // ROTATE RIGHT
-            if (direction == 'N') direction = 'E';
-            else if (direction == 'E') direction = 'S';
-            else if (direction == 'S') direction = 'W';
-            else if (direction == 'W') direction = 'N';
-        } else if (command == 'F'){ // MOVE FORWARD
-            if (direction == 'N') row--;
-            if (direction == 'S') row++;
-            if (direction == 'W') column--;
-            if (direction == 'E') column++;
-        }
+        if (command == 'L') direction.rotateLeft();
+        else if (command == 'R') direction.rotateRight();
+        else if (command == 'F') direction.moveForward();
     }
 }
